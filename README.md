@@ -2,7 +2,7 @@
 
 ### This repository contains code from:
 
-[Setup testnet Ethereum network with Docker](https://gist.github.com/fishbullet/04fcc4f7af90ee9fa6f9de0b0aa325ab)
+[Setup testnet Ethereum network with Docker](https://gist.github.com/fishbullet/4c36ecd6d6932adae24c68c8750894e6)
 
 ### Content
 
