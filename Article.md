@@ -1,5 +1,7 @@
 # Setup testnet Ethereum network with Docker
 
+> Ethereum is a decentralized platform that runs smart contracts: applications that run exactly as programmed without any possibility of downtime, censorship, fraud or third party interference.
+
 This is step-by-step guide, how to setup testnet Ethereum network.
 
 We'll setup ethereum testnet node in the docker container and write ruby json-rpc client.
@@ -82,9 +84,8 @@ Note about `geth` command line options:
 
 Documentation for all other command line options you can find [here](https://github.com/ethereum/go-ethereum/wiki/Command-Line-Options)
 
-Next step is waiting while we're getting the last block from the network.
-This process can be longer than you think.
-In my case I was wait at least 5 hours while got the last block.
+The next step, the database synchronization.
+That process can be long. In my case I was waiting at least 5 hours before got the last block.
 
 As long as you see in the logs `INFO [00-00|XX:XX:XX] Imported new state entries ....` the network is syncing.
 
@@ -97,12 +98,12 @@ WARN [xx-xx|xx:xx:xx] Blockchain not empty, fast sync disabled
 Welcome to the Geth JavaScript console!
 
 instance: Geth/v1.7.2-stable-1db4ecdc/linux-amd64/go1.9
- modules: admin:1.0 debug:1.0 eth:1.0 miner:1.0 net:1.0 personal:1.0 rpc:1.0 txpool:1.0 web3:1.0
+modules: admin:1.0 debug:1.0 eth:1.0 miner:1.0 net:1.0 personal:1.0 rpc:1.0 txpool:1.0 web3:1.0
 
 > 
 ```
 
-The synchronization process can be long, you can check progress with command `eth.syncing`, if syncing on going you must see:
+The synchronization process can be long, you can check progress with command `eth.syncing`, if syncing is on going you must see:
 
 ```json
 {                         
@@ -116,22 +117,23 @@ The synchronization process can be long, you can check progress with command `et
 
 Your actual output must be differ. Check last block here [ropsten.etherscan.io](https://ropsten.etherscan.io/).
 
-If you're lucky guy and your waiting is complete, you'll see `INFO [00-00|XX:XX:XX] Imported new chain segment  ...` entries in the log.
+If you're lucky guy and your waiting is complete, you'll see `INFO [xx-xx|xx:xx:xx] Imported new chain segment  ...` entries in the log.
 The command `eth.syncing` retruns `false` and command `eth.blockNumber` returns the same block number as on [ropsten.etherscan.io](https://ropsten.etherscan.io/) (+\- 2 or 3 blocks).
 
 Now let's create a brand new address and send to it some of ether from faucets.
 
-In order to create a new account we'll use `geth` console and the [`personal_newAccount`](https://github.com/ethereum/go-ethereum/wiki/Management-APIs#personal_newaccount) method.
+In order to create a new account we'll use `geth` console and the [`personal_newAccount()`](https://github.com/ethereum/go-ethereum/wiki/Management-APIs#personal_newaccount) method.
+
 ```js
 > personal.newAccount("foo")
 "0xd46c9fb0447dabc0d862141e817039fedbb653b0"
 >
 ```
-With new account send to it some ether by faucet. In my case I'm using [this faucet](http://faucet.ropsten.be:3001/).
+With the new account send to it some ether by faucet. In my case I'm using [this faucet](http://faucet.ropsten.be:3001/).
 
 We'll check the account balance with JSON-RPC client written by Ruby language (from the `json_rpc_client` folder):
 
-<sub> You might need to install script dependencies, check out README.md </sub>
+<sub> You might need to install script dependencies, check out the README.md file. </sub>
 
 ```bash
 $> ruby client.rb "0xd46c9fb0447dabc0d862141e817039fedbb653b0"
@@ -146,7 +148,7 @@ Address: 0xd46c9fb0447dabc0d862141e817039fedbb653b0 balance: 3
 
 Cheers! The account is filled with 3 ether. You also can check the account balance here [`ropsten etherscan`](https://ropsten.etherscan.io/).
 
-In this howto we have got up and running docker container with Ethereum testnet network (AKA Ropsten) and 
+We have got up and running docker container with Ethereum testnet network (AKA Ropsten) and we able to
 communicate with our node by JSON-RPC client written by Ruby.
 It's a good start to create your own blockchain project based on Ethereum.
 
