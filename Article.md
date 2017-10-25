@@ -11,6 +11,8 @@ The coins mained in the testnet have no values. You can request some coins on th
 
 I assume you have got hand-on experience with Docker, also you’re knowing Ruby a little. 
 
+> You can ask why docker? I don't want to install `geth` locally.
+
 Copy the source code from my [Github repository.](https://github.com/fishbullet/Ethereum-Private-Network)
 
 Let's get stated from the Docker container, here is a Dockerfile which we'll use:
